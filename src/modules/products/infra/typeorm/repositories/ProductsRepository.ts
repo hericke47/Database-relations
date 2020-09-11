@@ -33,21 +33,21 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async findByName(name: string): Promise<Product | undefined> {
-    const product = await this.ormRepository.findOne({
+    const findProduct = await this.ormRepository.findOne({
       where: {
         name,
       },
     });
 
-    return product;
+    return findProduct;
   }
 
   public async findAllById(products: IFindProducts[]): Promise<Product[]> {
-    const producIds = products.map(product => product.id);
+    const productIds = products.map(product => product.id);
 
     const existentProducts = await this.ormRepository.find({
       where: {
-        id: In(producIds),
+        id: In(productIds),
       },
     });
 
